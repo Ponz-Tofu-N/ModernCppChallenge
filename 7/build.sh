@@ -1,3 +1,4 @@
+#!/bin/sh
 # for basic cmake build
 
 # set build directory
