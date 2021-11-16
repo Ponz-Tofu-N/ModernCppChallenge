@@ -23,10 +23,10 @@ namespace PI
 
     /* output PI calculated by monte carlo method*/
     /* (d/2)^2 * pi / d^2 = pi/4 */    
-    float calcPI(const unsigned int &coordinates)
+    float calcPI(const unsigned int &samples)
     {
         unsigned int inside = 0;
-        for( int count = 0; count < coordinates; count++)
+        for( int count = 0; count < samples; count++)
         {
             auto p = genRandomPoint();
             if (distance(p) <= 1)
@@ -35,6 +35,6 @@ namespace PI
             }
         }
 
-        return 4.0f * inside / coordinates;
+        return 4.0f * inside / samples;
     }
 }
