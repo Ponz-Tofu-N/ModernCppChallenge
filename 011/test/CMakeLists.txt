@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(tst_roman CXX)
+project(roman_tst CXX)
 find_package(GTest REQUIRED)
 
-add_executable(tst_roman tst_roman.cpp)
+add_executable(roman_tst tst_roman.cpp)
 
-target_link_libraries(tst_roman PRIVATE GTest::GTest GTest::Main)
+target_link_libraries(roman_tst PRIVATE GTest::GTest GTest::Main)
 
-install(TARGETS tst_roman 
+install(TARGETS roman_tst 
 DESTINATION ${CMAKE_CURRENT_SOURCE_DIR})
