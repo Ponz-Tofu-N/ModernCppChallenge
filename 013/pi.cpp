@@ -4,7 +4,7 @@
 
 namespace PI
 {
-    /* generate random point inside a square with a side of the given length */
+    /* generate random point inside a unit square */
     std::pair<float, float> genRandomPoint()
     {
         std::random_device seed_gen;
@@ -15,7 +15,7 @@ namespace PI
         return std::make_pair(dist(ramdom), dist(ramdom));
     }
 
-    /* calc distance from origin*/
+    /* calc distance from origin to the point */
     float distance(std::pair<float, float> point)
     {
         return std::hypotf(point.first, point.second);

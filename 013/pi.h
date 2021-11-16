@@ -4,12 +4,12 @@
 /* monte carlo method */
 namespace PI
 {
-    /* generate random point inside a square with a side of the given length */
+    /* generate random point inside a unit square */
     std::pair<float, float> genRandomPoint();
 
-    /* calc distance from origin*/
+    /* calc distance from origin to the point */
     float distance(std::pair<float, float> point);
 
     /* output PI calculated by monte carlo method*/    
-    float calcPI(const unsigned int &coordinates);
+    float calcPI(const unsigned int &samples);
 }
