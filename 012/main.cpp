@@ -9,23 +9,10 @@ int main(int argc, char const *argv[])
     int limit;
     std::cin >> limit;
 
-    std::vector<std::pair<unsigned int, unsigned int>> collatzSizeLists;
+    auto largestpair = Collatz::pairLargest(limit);
 
-    unsigned int root = 0;
-    unsigned int size = 0;
-
-    for (size_t i = 2; i < limit; i++)
-    {
-        int buf = Collatz::collatzSeqSize(i);
-        if (buf > size)
-        {
-            root = i;
-            size = buf;
-        }
-    }
-
-    std::cout << "max root: " << root << "\n";
-    std::cout << "max size: " << size << "\n";
+    std::cout << "max size: " << largestpair.first << "\n";
+    std::cout << "max root: " << largestpair.second << "\n";
 
     return 0;
 }

@@ -24,4 +24,23 @@ namespace Collatz
 
         return size;
     }
+
+    /* Create a pair of the size of the largest collatz sequence and its root number. */
+    std::pair<unsigned int, unsigned int> pairLargest( const unsigned int &limit)
+    {
+        unsigned int root = 1;
+        unsigned int size = 1;
+        
+        for (size_t i = 2; i <= limit; i++)
+        {
+            int buf = Collatz::collatzSeqSize(i);
+            if (buf > size)
+            {
+                root = i;
+                size = buf;
+            }
+        }
+
+        return std::make_pair(size, root);
+    }
 }
