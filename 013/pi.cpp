@@ -10,10 +10,9 @@ namespace PI
         std::random_device seed_gen;
         std::mt19937 ramdom(seed_gen());
 
-        auto first = 1.0f * ramdom() / ramdom.max();
-        auto second = 1.0f * ramdom() / ramdom.max();
+        std::uniform_real_distribution<> dist(0.0f, 1.0f);
 
-        return std::make_pair(first, second);
+        return std::make_pair(dist(ramdom), dist(ramdom));
     }
 
     /* calc distance from origin*/
