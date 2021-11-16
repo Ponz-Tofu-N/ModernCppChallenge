@@ -19,17 +19,17 @@ TEST(TestCollatz, collatz1000000)
 TEST(TestCollatz, makePair1)
 {
     std::pair<unsigned int, unsigned int> pair(1, 1);
-    EXPECT_EQ(pair, Collatz::pairLargest(1));
+    EXPECT_EQ(pair, Collatz::largestPair(1));
 }
 
 TEST(TestCollatz, makePair837799)
 {
     std::pair<unsigned int, unsigned int> pair(525, 837799);
-    EXPECT_EQ(pair, Collatz::pairLargest(837799));
+    EXPECT_EQ(pair, Collatz::largestPair(837799));
 }
 
 TEST(TestCollatz, makePair1000000)
 {
     std::pair<unsigned int, unsigned int> pair(525, 837799);
-    EXPECT_EQ(pair, Collatz::pairLargest(1000000));
+    EXPECT_EQ(pair, Collatz::largestPair(1000000));
 }

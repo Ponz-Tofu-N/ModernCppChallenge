@@ -7,5 +7,5 @@ namespace Collatz
     unsigned int collatzSeqSize(const unsigned int &root);
 
     /* Create a pair of the size of the largest collatz sequence and its root number. */
-    std::pair<unsigned int, unsigned int> pairLargest( const unsigned int &limit);
+    std::pair<unsigned int, unsigned int> largestPair( const unsigned int &limit);
 }

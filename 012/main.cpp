@@ -9,7 +9,7 @@ int main(int argc, char const *argv[])
     int limit;
     std::cin >> limit;
 
-    auto largestpair = Collatz::pairLargest(limit);
+    auto largestpair = Collatz::largestPair(limit);
 
     std::cout << "max size: " << largestpair.first << "\n";
     std::cout << "max root: " << largestpair.second << "\n";
