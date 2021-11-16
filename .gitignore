@@ -31,7 +31,7 @@
 *.out
 *.app
 main
-tst*
+*tst
 */build
 */test/build
 .vscode
