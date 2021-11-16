@@ -25,15 +25,15 @@ namespace Collatz
         return size;
     }
 
-    /* create pairs of Collatz sequence and root number up to limit */
-    std::vector<std::pair<unsigned int, unsigned int>> createCollatzSizeLists(const unsigned int &limit)
-    {
-        return {{1, 1}};
-    }
+    // /* create pairs of Collatz sequence and root number up to limit */
+    // std::vector<std::pair<unsigned int, unsigned int>> createCollatzSizeLists(const unsigned int &limit)
+    // {
+    //     return {{1, 1}};
+    // }
 
-    /* output the root number creating longest Collatz sequence */
-    unsigned int longest(const std::vector<std::pair<unsigned int, unsigned int>> &sizeLists)
-    {
-        return 10;
-    }
+    // /* output the root number creating longest Collatz sequence */
+    // unsigned int longest(const std::vector<std::pair<unsigned int, unsigned int>> &sizeLists)
+    // {
+    //     return 10;
+    // }
 }
