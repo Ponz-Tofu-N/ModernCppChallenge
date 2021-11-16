@@ -27,18 +27,12 @@ namespace PI
     float calcPI(const unsigned int &coordinates)
     {
         unsigned int inside = 0;
-        unsigned int outside = 0;
-
         for( int count = 0; count < coordinates; count++)
         {
             auto p = genRandomPoint();
             if (distance(p) <= 1)
             {
                 inside++;
-            }
-            else
-            {
-                outside++;
             }
         }
 
