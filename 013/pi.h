@@ -8,8 +8,8 @@ namespace PI
     std::pair<float, float> genRandomPoint();
 
     /* calc distance from origin to the point */
-    float distance(std::pair<float, float> point);
+    float distance(const std::pair<float, float> &point);
 
-    /* output PI calculated by monte carlo method*/    
+    /* output PI calculated by monte carlo method*/
     float calcPI(const unsigned int &samples);
 }

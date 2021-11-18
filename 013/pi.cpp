@@ -16,7 +16,7 @@ namespace PI
     }
 
     /* calc distance from origin to the point */
-    float distance(std::pair<float, float> point)
+    float distance(const std::pair<float, float> &point)
     {
         return std::hypotf(point.first, point.second);
     }
