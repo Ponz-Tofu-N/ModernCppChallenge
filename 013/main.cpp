@@ -6,10 +6,14 @@
 
 int main(int argc, char const *argv[])
 {
-    std::cout << "Enter number of coocoordinates: ";
+    std::cout << "Enter number of samples: ";
     unsigned int coordinates; std::cin >> coordinates;
 
-    std::cout << "PI: " << PI::calcPI(coordinates) << "\n";
+    for (size_t i = 0; i < 10; i++)
+    {
+        std::cout << i << " .PI: " << PI::calcPI(coordinates) << "\n";
+    }
+    
 
     return 0;
 }
