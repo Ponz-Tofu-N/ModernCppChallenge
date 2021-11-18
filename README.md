@@ -2,7 +2,9 @@
 
 C++ Practice Repository
 
-My own answers to questions in The Modern C++ Challenge
+My answers to questions in The Modern C++ Challenge
+
+The Modern C++ Challengeの自分の回答
 
 ## Usage
 
