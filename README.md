@@ -1,15 +1,24 @@
-# ModernCppChallenge
+Modern C++ Challengeのオリジナル解法
+======================================
+
+C++の練習用リポジトリ
+
+The Modern C++ Challengeの自分の回答
 
 C++ Practice Repository
 
-My own answers to questions in The Modern C++ Challenge
+My answers to questions in The Modern C++ Challenge
 
-## Usage
+
+
+Usage
+--------
 
 1. move to question number directory
 2. run `./build.sh`
 3. exec `./main`
 
-## Test
+Test
+-----
 
 By using Google Test
