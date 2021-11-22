@@ -64,8 +64,31 @@ std::ostream& operator<<(std::ostream& os, const Ipv4& ip)
 
 std::istream& operator>>(std::istream& is, Ipv4& ip)
 {
-    std::string input;
-    is >> input; 
-    ip = Ipv4(input);
+    char dot1, dot2, dot3;
+    int byte1, byte2, byte3, byte4;
+
+    const int check = 255;
+
+    is >> byte1 >> dot1 >> byte2 >> dot2 >> byte3 >> dot3 >> byte4;
+
+    if (dot1 == '.' && dot2 == '.' && dot3 == '.')
+    {
+        if (byte1 > 255U)
+            byte1 &= check;
+        if (byte2 > 255U)
+            byte2 &= check;
+        if (byte3 > 255U)
+            byte3 &= check;
+        if (byte4 > 255U)
+            byte4 &= check;
+        
+        ip = Ipv4(byte1, byte2, byte3, byte4);
+    }
+    else
+    {
+        /* 文字列が不正の場合は、std::ios_base::iostateでstd::ios_base::failbitを設定する。 */
+        is.setstate(std::ios_base::failbit);
+    }
+    
     return is;
 }
