@@ -92,3 +92,9 @@ std::istream& operator>>(std::istream& is, Ipv4& ip)
     
     return is;
 }
+
+Ipv4& Ipv4::operator=(const Ipv4& other)
+{
+    adress = other.adress;
+    return *this;
+}

@@ -27,7 +27,13 @@ public:
     std::string output();
 
     /*operator-overload for iostream*/
+    /*operator<<, >>はメンバ関数ではないため、friendを付ける*/
+    /*friend関数は、メンバ以外の関数であってもメンバにアクセスできる*/
     friend std::ostream& operator<<(std::ostream& os, const Ipv4& ip);
     friend std::istream& operator>>(std::istream& is, Ipv4& ip);
+
+    /* assignment operator */
+    Ipv4& operator=(const Ipv4& other);
+
 };
 
