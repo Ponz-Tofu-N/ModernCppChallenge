@@ -22,7 +22,14 @@ int main(int argc, char const *argv[])
     /* Initialized with user input */
     Ipv4 cin_inp4;
     std::cin >> cin_inp4;
-    std::cout << "Standard Input: " << cin_inp4 << std::endl;
+    if (std::cin.fail())
+    {
+        std::cout << "invalid input." << std::endl;
+    }
+    else
+    {
+        std::cout << "Standard Input: " << cin_inp4 << std::endl;
+    }
     
     return 0;
 }
