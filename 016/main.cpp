@@ -1,5 +1,5 @@
-/* 15. IPv4 Data Type */
-/* Usage: Enter 10 digit number. */
+/* 16. IPv4 Data Type */
+/* Usage: Enter ipv4 adress. */
 
 #include <iostream>
 #include "ipv4.h"
