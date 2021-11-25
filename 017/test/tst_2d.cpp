@@ -98,10 +98,26 @@ TEST(Tst2d, increment){
     };
     
     auto itr1 = arr1.begin();
-    auto itr2 = arr1.begin();
 
     EXPECT_EQ(2, *(itr1 + 1));
-    EXPECT_EQ(4, *(itr2 + 3));
+    EXPECT_EQ(3, *(++itr1));
+}
+
+TEST(Tst2d, decrement){
+    
+    Array2d<int,3,2> arr1 =    
+    {
+        {
+            {1,2},
+            {3,4},
+            {5,6}
+        }
+    };
+    
+    auto itr1 = arr1.end();
+
+    EXPECT_EQ(5, *(itr1 - 1));
+    EXPECT_EQ(4, *(--itr1));
 }
 
 int main(int argc, char *argv[])

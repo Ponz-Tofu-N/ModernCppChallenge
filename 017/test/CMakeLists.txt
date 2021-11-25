@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(main_tst CXX)
 find_package(GTest REQUIRED)
 
-add_executable( main_tst tst_2d.cpp ../array2d.cpp  )
+add_executable( main_tst tst_2d.cpp ../array2d.h  )
 
 target_link_libraries(main_tst PRIVATE GTest::GTest GTest::Main)
 
