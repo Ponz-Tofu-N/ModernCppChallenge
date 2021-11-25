@@ -139,7 +139,7 @@ typename Array2d<T, C, R>::iterator &Array2d<T, C, R>::iterator::operator+(const
 TYPENAME_T
 typename Array2d<T, C, R>::iterator &Array2d<T, C, R>::iterator::operator++()
 {
-    pos += 1;
+    this->pos += 1;
     return *this;
 }
 
@@ -157,6 +157,8 @@ typename Array2d<T, C, R>::iterator &Array2d<T, C, R>::iterator::operator-(const
 TYPENAME_T
 typename Array2d<T, C, R>::iterator &Array2d<T, C, R>::iterator::operator--()
 {
+    this->pos -= 1;
+    return *this;
 }
 
 TYPENAME_T
