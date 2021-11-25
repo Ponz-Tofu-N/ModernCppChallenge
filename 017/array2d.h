@@ -146,7 +146,7 @@ typename Array2d<T, C, R>::iterator &Array2d<T, C, R>::iterator::operator++()
 TYPENAME_T
 typename Array2d<T, C, R>::iterator &Array2d<T, C, R>::iterator::operator-(const int length)
 {
-    if ((length - this->pos) > 0)
+    if ((this->pos - length) > 0)
     {
         this->pos -= length;
     }
