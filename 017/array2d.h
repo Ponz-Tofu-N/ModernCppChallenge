@@ -35,6 +35,8 @@ public:
     Array2d();
     Array2d(std::initializer_list<T>);
     Array2d(const std::vector<std::vector<T>> &);
+    Array2d(const Array2d<T, C, R> &);
+    Array2d(Array2d<T, C, R> &&);
     ~Array2d();
 
     T data(const unsigned int, const unsigned int);
@@ -45,6 +47,7 @@ public:
     void output();
 
     bool operator==(const Array2d<T, C, R> &);
+    Array2d<T, C, R> &operator=(Array2d<T, C, R> &&);
 };
 
 TYPENAME_T
@@ -77,12 +80,24 @@ Array2d<T, C, R>::Array2d(const std::vector<std::vector<T>> & init)
 }
 
 TYPENAME_T
+Array2d<T, C, R>::Array2d(const Array2d<T, C, R> &other)
+    : array2d(other.array2d)
+{
+}
+
+TYPENAME_T
 T Array2d<T, C, R>::data(const unsigned int column, const unsigned int row)
 {
     if (row < R && column < C)
         return array2d.at(column).at(row);
 
     return NULL;
+}
+
+TYPENAME_T
+Array2d<T, C, R>::Array2d(Array2d<T, C, R> &&other)
+    : array2d(other.array2d)
+{
 }
 
 TYPENAME_T
@@ -122,6 +137,12 @@ TYPENAME_T
 bool Array2d<T, C, R>::operator==(const Array2d<T, C, R> &other)
 {
     return std::equal(array2d.begin(), array2d.end(), other.array2d.begin(), other.array2d.end());
+}
+
+TYPENAME_T
+Array2d<T, C, R> &Array2d<T, C, R>::operator=(Array2d<T, C, R> && other)
+{
+    *this->array2d = other.array2d;
 }
 
 /* iterator class implementation */
@@ -178,7 +199,6 @@ typename Array2d<T, C, R>::iterator Array2d<T, C, R>::end()
 {
     return iterator(C * R - 1, *this);
 }
-
 
 TYPENAME_T
 typename Array2d<T, C, R>::iterator &Array2d<T, C, R>::iterator::operator=(const Array2d<T, C, R>::iterator &other)

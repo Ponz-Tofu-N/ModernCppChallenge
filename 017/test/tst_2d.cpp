@@ -120,6 +120,23 @@ TEST(Tst2d, decrement){
     EXPECT_EQ(4, *(--itr1));
 }
 
+TEST(Tst2d, move){
+    
+    Array2d<int,3,2> arr1 =    
+    {
+        {
+            {1,2},
+            {3,4},
+            {5,6}
+        }
+    };
+
+    Array2d<int, 3, 2> arr2 = std::move(arr1);
+    
+    EXPECT_EQ(1, arr2.data(0, 0));
+    EXPECT_EQ(6, arr2.data(2, 1));
+}
+
 int main(int argc, char *argv[])
 {
     ::testing::InitGoogleTest(&argc, argv);
