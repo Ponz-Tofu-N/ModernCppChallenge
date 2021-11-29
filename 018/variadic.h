@@ -1,13 +1,13 @@
-template <typename... Args>
-int minimum(int first, Args... args)
+template <typename T, typename... Args>
+T minimum(const T &first, Args &&...args)
 {
-    int res = first;
+    auto res = first;
 
-    for (auto &&num : {args...})
+    for (auto &&element : {args...})
     {
-        if (num < res)
+        if (element < res)
         {
-            res = num;
+            res = element;
         }
     }
 
