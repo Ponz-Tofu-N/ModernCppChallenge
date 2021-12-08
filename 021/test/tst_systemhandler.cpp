@@ -14,10 +14,16 @@ protected:
         handlerlist.push_back(FileHandle(file0path.c_str()));
         handlerlist.push_back(FileHandle(file1path.c_str()));
         handlerlist.push_back(FileHandle());
+
+        buf.fill('\0');
     }
 
     std::vector<FileHandle> handlerlist;
     static constexpr unsigned int MAXSIZE = 1024u;
+    std::array<char, MAXSIZE> buf;
+
+    const std::string ans_file1 = "this is a sample text for question 021 in file 1.";
+    const std::string ans_file2 = "C++ is difficult for me in file 2.";
 };
 
 TEST_F(SysHandlerTst, valid)
@@ -29,20 +35,28 @@ TEST_F(SysHandlerTst, valid)
 
 TEST_F(SysHandlerTst, readFile1)
 {
-    char str_cp[MAXSIZE];
-    read(handlerlist[0].get(), str_cp, MAXSIZE);
+    read(handlerlist[0].get(), buf.data(), MAXSIZE);
 
-    std::string str(str_cp);
-    EXPECT_EQ("for question 021 in file 1.", str);
+    std::string str;
+    for (size_t i = 0; buf[i] != '\0'; i++)
+    {
+        str.push_back(buf[i]);
+    }
+    
+    EXPECT_EQ(ans_file1, str);
 }
 
 TEST_F(SysHandlerTst, readFile2)
 {
-    char str_cp[MAXSIZE];
-    read(handlerlist[1].get(), str_cp, MAXSIZE);
+    read(handlerlist[1].get(), buf.data(), MAXSIZE);
 
-    std::string str(str_cp);
-    EXPECT_EQ("C++ is difficult in file 2.", str);
+    std::string str;
+    for (size_t i = 0; buf[i] != '\0'; i++)
+    {
+        str.push_back(buf[i]);
+    }
+
+    EXPECT_EQ(ans_file2, str);
 }
 
 TEST_F(SysHandlerTst, move)
