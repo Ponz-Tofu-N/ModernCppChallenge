@@ -81,35 +81,36 @@ TEST(TempTst, convCtoK)
 // [  FAILED  ] TempTst.convKtoC
 // [  FAILED  ] TempTst.convKtoF
 
+// equals関数で誤差を補完
+
 TEST(TempTst, convFtoC) 
 {
     Quantity<UNIT::Fahrenheit> tempf(12.345_f);
     auto c = ftoc(tempf);
     
-    EXPECT_EQ(-10.91944e0, (double)c);
-    // EXPECT_TRUE(c == -10.91944e0);
+    EXPECT_TRUE(c == -10.91944e0);
 }
 TEST(TempTst, convFtoK) 
 {
     Quantity<UNIT::Fahrenheit> tempf(12.345_f);
     auto k = ftok(tempf);
     
-    EXPECT_EQ(262.2306e0, (double)k);
+    EXPECT_TRUE(k == 262.2306e0);
 }
 
 TEST(TempTst, convKtoC) 
 {
     Quantity<UNIT::Kelvin> tempf(12.345_k);
     auto c = ktoc(tempf);
-    
-    EXPECT_EQ(-260.805e0, (double)c);
+
+    EXPECT_TRUE(c == -260.805e0);
 }
 TEST(TempTst, convKtoF)
 {
     Quantity<UNIT::Kelvin> tempf(12.345_k);
     auto f = ktof(tempf);
-    
-    EXPECT_EQ(-437.449e0, (double)f);
+
+    EXPECT_TRUE(f == -437.449e0);
 }
 
 int main(int argc, char *argv[])

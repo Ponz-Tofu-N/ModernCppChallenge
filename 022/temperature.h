@@ -55,6 +55,12 @@ namespace Temperature
             return std::string();
         }
 
+        inline bool equals(const Quantity& other)
+        {
+            auto err = (double)(*this - other);
+            return std::abs(err) < 1.0e-5;
+        }
+
         inline explicit operator double() const
         {
             return m_amount;
@@ -73,7 +79,7 @@ namespace Temperature
 
         bool operator==(const Quantity &other)
         {
-            return this->m_amount == other.m_amount;
+            return equals(other);
         }
 
         bool operator==(const double& other)

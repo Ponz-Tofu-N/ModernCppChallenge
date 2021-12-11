@@ -18,14 +18,23 @@
 
 #include "temperature.h"
 
+using namespace Temperature::literals;
+
 int main(int argc, char const *argv[])
 {
-    Temperature<UNIT::Celsius> tempc1(12.435);
-    Temperature<UNIT::Celsius> tempc2(24.781);
+    Temperature::Quantity<Temperature::UNIT::Celsius> tempc(12.435_deg);
+    Temperature::Quantity<Temperature::UNIT::Fahrenheit> tempf(24.781_f);
+    Temperature::Quantity<Temperature::UNIT::Kelvin> tempk(294.512_k);
 
-    auto tempc = tempc1 + tempc2;
+    /* 24.781F -> -4.010556C */
+    auto cfromf = Temperature::ftoc(tempf);
+    /* 294.512K -> 21.362C */
+    auto cfromk = Temperature::ktoc(tempk);
 
-    std::cout << tempc.output() << std::endl;
+    /* 12.435C - 4.010556C + 21.362C = 29.786444*/
+    auto outc = tempc + cfromf + cfromk;
+
+    std::cout << outc.output() << std::endl;
 
     return 0;
 }
