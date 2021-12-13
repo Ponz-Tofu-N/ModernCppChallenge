@@ -33,8 +33,10 @@ int main(int argc, char const *argv[])
 
     /* 12.435C - 4.010556C + 21.362C = 29.786444*/
     auto outc = tempc + cfromf + cfromk;
-
     std::cout << outc.output() << std::endl;
+
+    auto cfromfcast = Temperature::temperature_cast<Temperature::UNIT::Celsius>(tempf);
+    std::cout << cfromfcast.output() << std::endl;
 
     return 0;
 }

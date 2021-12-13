@@ -55,7 +55,7 @@ namespace Temperature
             return std::string();
         }
 
-        inline bool equals(const Quantity& other)
+        inline bool equals(const Quantity &other)
         {
             auto err = (double)(*this - other);
             return std::abs(err) < 1.0e-5;
@@ -82,7 +82,7 @@ namespace Temperature
             return equals(other);
         }
 
-        bool operator==(const double& other)
+        bool operator==(const double &other)
         {
 
             return (this->m_amount - other) < 1.0e-5;
@@ -127,6 +127,36 @@ namespace Temperature
     static Quantity<UNIT::Kelvin> ftok(Quantity<UNIT::Fahrenheit> f) noexcept
     {
         return Quantity<UNIT::Kelvin>(((double)f - 32e0) / 1.8e0 + 273.15e0);
+    }
+
+    template <UNIT TO, UNIT FROM>
+    struct QuantityTraits
+    {
+        static double convert(const double &amount) = delete;
+    };
+
+    /*テンプレートの特殊化*/
+    template <>
+    struct QuantityTraits<UNIT::Celsius, UNIT::Fahrenheit>
+    {
+        static double convert(const double &amount)
+        {
+            return (amount - 32e0) / 1.8e0;
+        }
+    };
+    template <>
+    struct QuantityTraits<UNIT::Celsius, UNIT::Kelvin>
+    {
+        static double convert(const double &amount)
+        {
+            return amount - 273.15e0;
+        }
+    };
+
+    template <UNIT TO, UNIT FROM>
+    Quantity<TO> temperature_cast(const Quantity<FROM>& q)
+    {
+        return Quantity<TO>(QuantityTraits<TO, FROM>::convert(static_cast<double>(q)));
     }
 }
 
