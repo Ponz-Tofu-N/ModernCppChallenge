@@ -24,5 +24,8 @@ int main(int argc, char const *argv[])
     std::cout << hex::hexToStr(input2) << std::endl;
     std::cout << hex::hexToStr(input2, hex::CASE::Lower) << std::endl;
 
+    std::cout << hex::bToStr(input) << std::endl;
+    std::cout << hex::bToStr(input, hex::CASE::Lower) << std::endl;
+
     return 0;
 }
