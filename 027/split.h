@@ -32,8 +32,7 @@ C split(const std::string &input, const std::string &delimiters)
         prev_pos = ++pos;
     }
 
-    std::getline(iss, token, input[pos]);
-    tokens.push_back(token);
+    tokens.push_back(input.substr(prev_pos));
 
     return tokens;
 }
