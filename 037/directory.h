@@ -102,11 +102,12 @@ std::vector<std::string> findByRegex(const std::string &path, const std::regex &
 {
     namespace fs = std::filesystem;
 
-    std::smatch matches;
     fs::path dir_path(path);
+    std::smatch matches;
     fs::recursive_directory_iterator file(dir_path);
-
+    
     std::vector<std::string> hit_files;
+
     while (file != fs::end(file))
     {
         if ((*file).is_regular_file())
@@ -119,6 +120,22 @@ std::vector<std::string> findByRegex(const std::string &path, const std::regex &
 
         file++;
     }
+
+    return hit_files;
+}
+
+std::vector<std::filesystem::directory_entry> findByRegexA(const std::string &path, const std::regex &re)
+{
+    namespace fs = std::filesystem;
+
+    fs::path dir_path(path);
+    fs::recursive_directory_iterator file(dir_path);
+    
+    std::vector<fs::directory_entry> hit_files;
+
+    std::copy_if(fs::begin(file), fs::end(file), std::back_inserter(hit_files), [&](const fs::directory_entry e){
+        return std::regex_match(e.path().filename().string(), re) && fs::is_regular_file(e);
+    });
 
     return hit_files;
 }
