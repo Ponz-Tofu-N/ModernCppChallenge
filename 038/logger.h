@@ -12,7 +12,7 @@ class Logger
 {
 private:
     fs::path m_filepath;
-    std::ofstream *ofstr = nullptr;
+    std::ofstream ofstr;
     bool canRemove = true;
 
     void make_logfile();
@@ -61,8 +61,6 @@ void Logger::save()
 
 void Logger::add_message(const std::string& message)
 {
-    std::ofstream ofstr;
-
     ofstr.open(m_filepath, std::ios_base::app);
     ofstr << message << std::endl;
     ofstr.close();
