@@ -52,4 +52,15 @@ int day_of_year(int y, int m, int d)
 
   return (date - sys_days{year{y} / January / 1}).count() + 1;
 }
+
+int week_of_year(int y, int m, int d)
+{
+  using namespace std::chrono_literals;
+  using namespace std::chrono;
+
+  sys_days date{year{y} / m / d};
+
+  return duration_cast<weeks>(date - sys_days{year{y} / January / 1}).count() +
+         1;
+}
 }  // namespace myday

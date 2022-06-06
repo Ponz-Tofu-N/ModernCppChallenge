@@ -23,5 +23,12 @@ int main(int argc, char const* argv[])
             << std::endl;
   std::cout << "2022/1/30: " << date220130 << std::endl;
 
+  auto week = myday::week_of_year(y, m, d);
+  auto week220130 = myday::week_of_year(2022, 1, 30);
+
+  std::cout << "today(" << y << "/" << m << "/" << d << "): " << week
+            << std::endl;
+  std::cout << "2022/1/30: " << week220130 << std::endl;
+
   return 0;
 }
