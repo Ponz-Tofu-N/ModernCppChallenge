@@ -1,7 +1,8 @@
 #include <chrono>
 
 // std::chrono::hours
-
+namespace myday
+{
 std::chrono::days day_distance(const int y1, const int m1, const int d1,
                                const int y2, const int m2, const int d2)
 {
@@ -15,3 +16,4 @@ std::chrono::days day_distance(const int y1, const int m1, const int d1,
 
   return duration_cast<days>(distance);
 }
+}  // namespace myday

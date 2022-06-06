@@ -8,7 +8,7 @@
 #include <iostream>
 #include <thread>
 
-#include "day_distance.h"
+#include "day.h"
 int main(int argc, char const* argv[])
 {
   int y, m, d;
