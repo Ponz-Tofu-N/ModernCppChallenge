@@ -1,8 +1,8 @@
-/* 38. Temp log file */
+/* 40. day distance */
 
 /*
  * Features:
- * Output temp text log file.
+ * calculate day distance between first and second day.
  */
 
 #include <iostream>

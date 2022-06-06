@@ -1,8 +1,8 @@
-/* 38. Temp log file */
+/* 41. weekday */
 
 /*
  * Features:
- * Output temp text log file.
+ * output the weekday from a day.
  */
 
 #include <iostream>

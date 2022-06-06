@@ -1,8 +1,8 @@
-/* 38. Temp log file */
+/* 39. Elapsed time */
 
 /*
  * Features:
- * Output temp text log file.
+ * Count Elapsed time.
  */
 
 #include <iostream>
