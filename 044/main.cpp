@@ -1,8 +1,8 @@
-/* 42. Time zone */
+/* 44. Calender */
 
 /*
  * Features:
- * output local time per user.
+ * output calender by a given date.
  */
 
 #include "day.h"
