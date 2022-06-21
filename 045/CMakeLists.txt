@@ -4,7 +4,7 @@ project(main CXX)
 
 set(CMAKE_BUILD_TYPE Debug)
 # set(CMAKE_CXX_COMPILER /usr/bin/clang++-10)
-set(CMAKE_CXX_COMPILER "/usr/bin/clang++" CACHE string "clang++ compiler" FORCE)
+set(CMAKE_CXX_COMPILER "/usr/bin/clang++" CACHE STRING "clang++ compiler" FORCE)
 
 file(GLOB HEADERS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "*.h") 
 file(GLOB SOURCES RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "*.cpp") 
