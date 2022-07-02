@@ -66,8 +66,16 @@ public:
       : rb(_v), pos(_pos), last(_last){};
   ~ring_buffer_iterator(){};
 
-  const_reference operator*() const { return rb->buf.at(pos); };
-  reference operator*() { return rb->buf.at(pos); };
+  const_reference operator*() const
+  {
+    if (last) throw std::out_of_range("out of range");
+    return rb->buf_.at(pos);
+  };
+  reference operator*()
+  {
+    if (last) throw std::out_of_range("out of range");
+    return rb->buf_.at(pos);
+  };
 
   ring_buffer_iterator& operator++()
   {
@@ -85,16 +93,18 @@ public:
 
   ring_buffer_iterator operator+(size_t n)
   {
-    // if (last) throw std::out_of_range("out of range");
-    pos = (pos + n) % rb->capacity();
-    return *this;
+    int index = pos + (n % rb->capacity());
+    if ((index + 1) > rb->size()) throw std::out_of_range("out of range");
+
+    return ring_buffer_iterator(this->rb, index, false);
   };
   ring_buffer_iterator operator-(const size_t n)
   {  // 2 - 4 % 5
     int index = pos - (n % rb->capacity());
     if (index < 0) index += rb->capacity();
+    if ((index + 1) > rb->size()) throw std::out_of_range("out of range");
 
-    return ring_buffer_iterator(this->rb, index);
+    return ring_buffer_iterator(this->rb, index, false);
   };
 
   bool operator==(const ring_buffer_iterator& it) const
@@ -120,36 +130,65 @@ public:
 template <class T>
 class ring_buffer
 {
+  /*リングバッファのイテレータ*/
+  /*最初に追加された位置(古い値)がbegin、最後に追加された位置(最新の値)の次がend*/
   using iterator = ring_buffer_iterator<T>;
 
 private:
-  std::vector<T> buf;
-  size_t max_size;
-  size_t pos = 0;
+  // データを格納するコンテナ
+  std::vector<T> buf_;
+  // 現在格納されている要素数
+  size_t size_ = 0;
+  // 最後に挿入した要素の位置
+  size_t pos_ = -1;
+
+  // 現在のインデックスから次の位置のインデックスを返す
+  size_t next_pos() { return (pos_ + 1) % buf_.capacity(); }
+
+  size_t first_pos()
+  {
+    if (size_ < buf_.capacity()) return 0;
+    return (pos_ + 1) % buf_.capacity();
+  }
 
 public:
   ring_buffer(/* args */) = delete;
-  ring_buffer(const size_t n) : buf(n), max_size(n) {}
+  ring_buffer(const size_t n) : buf_(n) {}
 
   ~ring_buffer(){};
 
   void push(const T& element)
   {
-    if (pos == max_size) pos = 0;
-
-    buf[pos] = element;
-    pos++;
+    // size_ != バッファ容量のときインクリメント
+    if (size_ != buf_.capacity()) size_++;
+    // pos_ をインクリメント -> 関数化
+    pos_ = next_pos();
+    // 先頭に値を代入
+    buf_[pos_] = element;
   };
 
-  bool full() { return max_size == buf.size(); };
-  bool empty() { return buf.empty(); };
-  size_t size() { return buf.size(); };
-  size_t capacity() { return max_size; };
+  bool full() { return size_ == buf_.capacity(); };
+  bool empty() { return size_ == 0; };
+  size_t size() { return size_; };
+  size_t capacity() { return buf_.capacity(); };
 
-  iterator begin() { return iterator(this, 0); }
-  iterator end() { return iterator(this, max_size - 1, true); }
+  T& operator[](const size_t& index)
+  {
+    // 要素数より大きなindexへのアクセスをはじく
+    if (size_ < index)
+      throw std::runtime_error("invalid access. out of range.");
 
-  T& operator[](const size_t& index) { return buf.at(index); };
+    // indexの値を返す
+    return buf_.at(index);
+  };
+
+  bool operator==(const ring_buffer<T>& other) const
+  {
+    return this->buf_ == other.buf_;
+  }
+
+  iterator begin() { return iterator(this, first_pos(), empty()); }
+  iterator end() { return iterator(this, next_pos(), true); }
 
   friend class ring_buffer_iterator<T>;
 };
