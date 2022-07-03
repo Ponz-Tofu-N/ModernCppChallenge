@@ -59,52 +59,77 @@ class ring_buffer_iterator
 private:
   self_type* rb;
   size_t pos;
+  size_t head;
   bool last;
 
 public:
-  ring_buffer_iterator(self_type* _v, size_t _pos, bool _last = false)
-      : rb(_v), pos(_pos), last(_last){};
+  ring_buffer_iterator(self_type* _v, size_t _pos, size_t _head,
+                       bool _last = false)
+      : rb(_v), pos(_pos), head(_head), last(_last){};
   ~ring_buffer_iterator(){};
 
   const_reference operator*() const
   {
-    if (last) throw std::out_of_range("out of range");
+    if (last)
+      throw std::out_of_range("out of range");
     return rb->buf_.at(pos);
   };
   reference operator*()
   {
-    if (last) throw std::out_of_range("out of range");
+    if (last)
+      throw std::out_of_range("out of range");
     return rb->buf_.at(pos);
   };
 
   ring_buffer_iterator& operator++()
   {
-    if (last) throw std::out_of_range("out of range");
-    pos = pos++ % rb->capacity();
+    if (last || (head + 1 == rb->capacity()))
+      throw std::out_of_range("out of range");
+
+    head++;
+    pos = (pos + 1) % rb->capacity();
     return *this;
   };
-  // iterator operator++(int){};
+
   ring_buffer_iterator& operator--()
   {
-    int index = pos - 1;
-    if (index < 0) pos = index + rb->capacity();
+    if (head - 1 < 0)
+      throw std::out_of_range("out of range");
+
+    head--;
+    pos--;
+
+    if (pos < 0)
+      pos += rb->capacity();
+
     return *this;
   };
 
-  ring_buffer_iterator operator+(size_t n)
+  // イテレータは循環しない
+  ring_buffer_iterator operator+(const size_t n)
   {
-    int index = pos + (n % rb->capacity());
-    if ((index + 1) > rb->size()) throw std::out_of_range("out of range");
+    if (head + n >= rb->capacity())
+      throw std::out_of_range("out of range");
 
-    return ring_buffer_iterator(this->rb, index, false);
+    int index = (pos + n) % rb->capacity();
+
+    head += n;
+
+    return ring_buffer_iterator(this->rb, index, head, false);
   };
-  ring_buffer_iterator operator-(const size_t n)
-  {  // 2 - 4 % 5
-    int index = pos - (n % rb->capacity());
-    if (index < 0) index += rb->capacity();
-    if ((index + 1) > rb->size()) throw std::out_of_range("out of range");
 
-    return ring_buffer_iterator(this->rb, index, false);
+  ring_buffer_iterator operator-(const size_t n)
+  {
+    if (head - n < 0)
+      throw std::out_of_range("out of range");
+
+    int index = (pos - n);
+    if (index < 0)
+      index += rb->capacity();
+
+    head += n;
+
+    return ring_buffer_iterator(this->rb, index, head, false);
   };
 
   bool operator==(const ring_buffer_iterator& it) const
@@ -147,8 +172,24 @@ private:
 
   size_t first_pos()
   {
-    if (size_ < buf_.capacity()) return 0;
-    return (pos_ + 1) % buf_.capacity();
+    int index = pos_ - size_ + 1;
+    if (index < 0)
+      index += buf_.capacity();
+
+    return index;
+  }
+
+  size_t previous_pos()
+  {
+    // 最後の位置を1戻す
+    // pos_が―1になった時は？
+    // indexを最後のindexに変換する条件
+    // index==-1のときかつsize_>0のとき
+    int index = pos_ - 1;
+    if (index == -1 && size_ > 0)
+      return index + buf_.capacity();
+
+    return index;
   }
 
 public:
@@ -160,12 +201,21 @@ public:
   void push(const T& element)
   {
     // size_ != バッファ容量のときインクリメント
-    if (size_ != buf_.capacity()) size_++;
+    if (size_ != buf_.capacity())
+      size_++;
     // pos_ をインクリメント -> 関数化
     pos_ = next_pos();
     // 先頭に値を代入
     buf_[pos_] = element;
   };
+
+  void pop()
+  {
+    // サイズを1減らす
+    size_--;
+
+    pos_ = previous_pos();
+  }
 
   bool full() { return size_ == buf_.capacity(); };
   bool empty() { return size_ == 0; };
@@ -187,8 +237,8 @@ public:
     return this->buf_ == other.buf_;
   }
 
-  iterator begin() { return iterator(this, first_pos(), empty()); }
-  iterator end() { return iterator(this, next_pos(), true); }
+  iterator begin() { return iterator(this, first_pos(), 0, empty()); }
+  iterator end() { return iterator(this, next_pos(), size_, true); }
 
   friend class ring_buffer_iterator<T>;
 };
