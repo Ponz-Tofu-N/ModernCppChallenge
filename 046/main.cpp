@@ -2,12 +2,13 @@
 
 /*
  * Features:
- * priority queue.
+ * ring buffer.
  * - push()
  * - pop()
  * - top()
  * - size()
  * - empty()
+ * - support Ramdom Access Iterator
  */
 
 #include <iostream>
