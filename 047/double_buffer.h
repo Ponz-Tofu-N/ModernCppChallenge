@@ -1,3 +1,10 @@
+#include <algorithm>
+#include <chrono>
+#include <iostream>
+#include <iterator>
+#include <mutex>
+#include <thread>
+
 namespace alg
 {
 template <class T>
@@ -20,21 +27,29 @@ public:
   }
   // 書き込み面にコピーする。
   // 引数は？ → vector, 配列, initializer_list？
-  void write(const std::vector<T>&){};
+  //   void write(const std::vector<T>&){};
   void write(pointer ptr, size_t size)
   {
-    std::lock_guard<std::mutex> lock(m);
+    using namespace std::chrono_literals;
     auto len = std::min(mSize, size);
+
+    std::unique_lock<std::mutex> lock(m);
+
     std::copy(ptr, ptr + len, forWrite);
     std::swap(forWrite, forRead);
+
+    lock.unlock();
   };
   // 読み取り面を出力
   //コンソールへの出力もmutexを取得した状態で行う。
   template <typename Output>
   void read(Output i) const
   {
-    std::lock_guard<std::mutex> lock(m);
+    std::unique_lock<std::mutex> lock(m);
+
     std::copy(forRead, forRead + mSize, i);
+
+    lock.unlock();
     // return forRead;
   };
 
