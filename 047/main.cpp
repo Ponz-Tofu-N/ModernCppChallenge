@@ -1,22 +1,15 @@
-/* 46. Ring Buffer */
+/* 47. Double Buffer */
 
 /*
- * Features:
- * priority queue.
- * - push()
- * - pop()
- * - top()
- * - size()
- * - empty()
+ * keywords:
+ * Double Buffer.
+ * - write()
+ * - read()
+ * - Mutual exclusion
+ * - Multi Thread
+ * - std::mutex
+ * - std::thread
  */
-
-#include <algorithm>
-#include <chrono>
-#include <iostream>
-#include <iterator>
-#include <mutex>
-#include <thread>
-#include <vector>
 
 #include "double_buffer.h"
 int main()
@@ -32,6 +25,7 @@ int main()
         data[j] = i + j;
       }
 
+      using namespace std::chrono_literals;
       buf.write(data, 10);
 
       using namespace std::chrono_literals;
