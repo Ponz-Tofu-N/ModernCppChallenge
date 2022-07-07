@@ -46,6 +46,9 @@ std::map<char, double> analyze_text(std::string const & input){
 
   size_t max_count = 0;
 
+  for (char c = 'a'; c <= 'z'; c++)
+    counter[c] = 0;
+  
   for (size_t i = 0; i < input.size(); i++)
   {
     const char target = input[i];
