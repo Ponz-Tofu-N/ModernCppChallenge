@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <map>
 #include <vector>
+#include <cctype>
 #include <string>
 
 template <typename T>
@@ -48,9 +49,9 @@ std::map<char, double> analyze_text(std::string const & input){
   for (size_t i = 0; i < input.size(); i++)
   {
     const char target = input[i];
-    if ( 'a' <=target && target <= 'z' )
+    if ( static_cast<bool>(std::isalpha(target)) )
     {
-      counter[target] += 1e0;
+      counter[std::tolower(target)] += 1e0;
       max_count++;
     } 
   }
