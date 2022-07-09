@@ -22,35 +22,38 @@ std::vector<std::string> normalize_phone_numbers(
     std::vector<std::string> const& list, std::string const& key)
 {
   std::vector<std::string> result;
-  std::transform(
-      list.begin(), list.end(), std::back_insert_iterator(result),
-      [&key](auto n) {
-        /* スペースを削除 */
-        std::remove_if(n.begin(), n.end(), [](auto c) { return c == ' '; });
+  std::transform(list.begin(), list.end(), std::back_insert_iterator(result),
+                 [&key](auto n) {
+                   /* スペースを削除 */
+                   auto rm_begin =
+                       std::remove_if(n.begin(), n.end(),
+                                      [](auto c) { return std::isspace(c); });
 
-        switch (n[0])
-        {
-            /* 先頭が０だったら国番号に置き換え */
-          case '0':
-            n.erase(0, 1);
-            break;
-            /* +だったら何もしない */
-          case '+':
-            return n;
+                   n.erase(rm_begin, n.end());
 
-            /*先頭が国番号だったら削除*/
-          default:
-            if (std::includes(n.begin(), n.begin() + 2, key.begin(), key.end()))
-              n.erase(0, 2);
+                   switch (n[0])
+                   {
+                       /* 先頭が０だったら国番号に置き換え */
+                     case '0':
+                       n.erase(0, 1);
+                       break;
+                       /* +だったら何もしない */
+                     case '+':
+                       return n;
 
-            break;
-        }
+                       /*先頭が国番号だったら削除*/
+                     default:
+                       if (n.find(key) == 0)
+                         n.erase(0, 2);
 
-        //先頭に国番号を結合
-        n = '+' + key + n;
+                       break;
+                   }
 
-        return n;
-      });
+                   //先頭に国番号を結合
+                   n = '+' + key + n;
+
+                   return n;
+                 });
 
   return result;
 }
