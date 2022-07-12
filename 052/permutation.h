@@ -1,8 +1,7 @@
 #include <algorithm>
+#include <cmath>
 #include <iostream>
 #include <string>
-#include <vector>
-
 // m a i n
 // m + p(a i n)
 // m + (a + p(i n))
@@ -33,4 +32,14 @@ void print_permutations_recursive(std::string const& target)
   permuration(target, "");
 }
 
-void print_permutations() {}
+void print_permutations(std::string target)
+{
+  for (size_t i = 0; i < target.size(); i++)
+  {
+    for (size_t j = 0; j < std::tgamma(target.size()); j++)
+    {
+      std::cout << target << std::endl;
+      std::next_permutation(target.begin(), target.end());
+    }
+  }
+}

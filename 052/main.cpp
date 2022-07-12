@@ -42,6 +42,6 @@ int main()
   std::cout << "recursive version" << std::endl;
   print_permutations_recursive("main");
 
-  // std::cout << "non-recursive version" << std::endl;
-  // print_permutations("main");
+  std::cout << "non-recursive version" << std::endl;
+  print_permutations("main");
 }
