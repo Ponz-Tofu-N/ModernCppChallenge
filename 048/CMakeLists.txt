@@ -20,6 +20,6 @@ add_executable(main most_frequent.h main.cpp)
 
 # target_link_libraries(main PUBLIC "-pthread")
 
-# set_property(TARGET main PROPERTY CXX_STANDARD 20)
+set_property(TARGET main PROPERTY CXX_STANDARD 17)
 # TARGET_LINK_LIBRARIES( main LINK_PUBLIC ${Boost_LIBRARIES} )
 install(TARGETS main DESTINATION ${CMAKE_CURRENT_SOURCE_DIR})
