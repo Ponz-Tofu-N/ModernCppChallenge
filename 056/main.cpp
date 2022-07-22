@@ -28,9 +28,15 @@ int main()
     {404, "The Modern C++ Programming Cookbook", "Marius Bancila"} };
 
   auto titles = select(books, [](book const& b) {return b.title; });
+  auto ids = select(books, [](book const& b) {return b.id; });
 
   for (auto const& title : titles)
   {
     std::cout << title << std::endl;
+  }
+
+  for (auto const& id : ids)
+  {
+    std::cout << id << std::endl;
   }
 }
