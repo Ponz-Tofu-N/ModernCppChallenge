@@ -111,14 +111,18 @@ int main()
     print(std::begin(a), std::end(a));
   }
   std::cout << "------------------------------------" << std::endl;
-  // {
-  //   std::vector<int> v{1, 5, 3, 8, 6, 2, 9, 7, 4};
+  std::cout << "---------- non-recursive -----------" << std::endl;
+  {
+    std::vector<int> v{ 1, 5, 3, 8, 6, 2, 9, 7, 4 };
+    std::cout << std::left << std::setw(12) << "std-vector:";
+    print(std::begin(v), std::end(v));
 
-  //   quicksorti(std::begin(v), std::end(v));
+    quicksorti(std::begin(v), std::end(v));
 
-  //   print(std::begin(v), std::end(v));
-  // }
-
+    std::cout << std::left << std::setw(12) << "sorted:";
+    print(std::begin(v), std::end(v));
+  }
+  std::cout << "------------------------------------" << std::endl;
   // {
   //   const size_t count = 1000000;
   //   std::vector<int> data(count);
