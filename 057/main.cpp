@@ -28,6 +28,7 @@ void print(RamdomAI begin, RamdomAI end)
 
 int main()
 {
+  std::cout << "--------- recursive/normal ---------" << std::endl;
   {
     std::vector<int> v{5, 3, 8, 6, 2, 9, 7, 4, 1};
 
@@ -66,34 +67,49 @@ int main()
 
     std::cout << std::left << std::setw(12) << "sorted:";
     print(std::begin(a), std::end(a));
+  }
+  std::cout << "------------------------------------" << std::endl;
+  std::cout << "-- recursive/comparation function --" << std::endl;
+  {
+    std::vector<int> v{1, 5, 3, 8, 6, 2, 9, 7, 4};
+
+    std::cout << std::left << std::setw(12) << "std-vector:";
+    print(std::begin(v), std::end(v));
+
+    quicksort(std::begin(v), std::end(v), std::greater_equal<>());
+
+    std::cout << std::left << std::setw(12) << "sorted:";
+    print(std::begin(v), std::end(v));
 
     std::cout << std::endl;
   }
 
-  // {
-  //   std::vector<int> v{1, 5, 3, 8, 6, 2, 9, 7, 4};
+  {
+    std::array<int, 9> a{1, 2, 3, 4, 5, 6, 7, 8, 9};
 
-  //   quicksort(std::begin(v), std::end(v), std::greater_equal<>());
+    std::cout << std::left << std::setw(12) << "std-array:";
+    print(std::begin(a), std::end(a));
 
-  //   print(std::begin(v), std::end(v));
-  // }
+    quicksort(std::begin(a), std::end(a), std::greater_equal<>());
 
-  // {
-  //   std::array<int, 9> a{1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::cout << std::left << std::setw(12) << "sorted:";
+    print(std::begin(a), std::end(a));
 
-  //   quicksort(std::begin(a), std::end(a), std::greater_equal<>());
+    std::cout << std::endl;
+  }
 
-  //   print(std::begin(a), std::end(a));
-  // }
+  {
+    int a[]{9, 8, 7, 6, 5, 4, 3, 2, 1};
 
-  // {
-  //   int a[]{9, 8, 7, 6, 5, 4, 3, 2, 1};
+    std::cout << std::left << std::setw(12) << "c-array:";
+    print(std::begin(a), std::end(a));
 
-  //   quicksort(std::begin(a), std::end(a), std::greater_equal<>());
+    quicksort(std::begin(a), std::end(a), std::greater_equal<>());
 
-  //   print(std::begin(a), std::end(a));
-  // }
-
+    std::cout << std::left << std::setw(12) << "sorted:";
+    print(std::begin(a), std::end(a));
+  }
+  std::cout << "------------------------------------" << std::endl;
   // {
   //   std::vector<int> v{1, 5, 3, 8, 6, 2, 9, 7, 4};
 
