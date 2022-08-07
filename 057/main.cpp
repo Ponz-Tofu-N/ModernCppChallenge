@@ -13,6 +13,7 @@
 #include <iomanip>
 #include <iostream>
 #include <vector>
+#include <array>
 
 #include "sort_alg.h"
 
@@ -30,7 +31,7 @@ int main()
 {
   std::cout << "--------- recursive/normal ---------" << std::endl;
   {
-    std::vector<int> v{5, 3, 8, 6, 2, 9, 7, 4, 1};
+    std::vector<int> v{ 5, 3, 8, 6, 2, 9, 7, 4, 1 };
 
     std::cout << std::left << std::setw(12) << "std-vector:";
     print(std::begin(v), std::end(v));
@@ -44,7 +45,7 @@ int main()
   }
 
   {
-    std::array<int, 9> a{1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::array<int, 9> a{ 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
     std::cout << std::left << std::setw(12) << "std-array:";
     print(std::begin(a), std::end(a));
@@ -58,7 +59,7 @@ int main()
   }
 
   {
-    int a[]{9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int a[]{ 9, 8, 7, 6, 5, 4, 3, 2, 1 };
 
     std::cout << std::left << std::setw(12) << "c-array:";
     print(std::begin(a), std::end(a));
@@ -71,7 +72,7 @@ int main()
   std::cout << "------------------------------------" << std::endl;
   std::cout << "-- recursive/comparation function --" << std::endl;
   {
-    std::vector<int> v{1, 5, 3, 8, 6, 2, 9, 7, 4};
+    std::vector<int> v{ 1, 5, 3, 8, 6, 2, 9, 7, 4 };
 
     std::cout << std::left << std::setw(12) << "std-vector:";
     print(std::begin(v), std::end(v));
@@ -85,7 +86,7 @@ int main()
   }
 
   {
-    std::array<int, 9> a{1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::array<int, 9> a{ 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
     std::cout << std::left << std::setw(12) << "std-array:";
     print(std::begin(a), std::end(a));
@@ -99,7 +100,7 @@ int main()
   }
 
   {
-    int a[]{9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int a[]{ 9, 8, 7, 6, 5, 4, 3, 2, 1 };
 
     std::cout << std::left << std::setw(12) << "c-array:";
     print(std::begin(a), std::end(a));
