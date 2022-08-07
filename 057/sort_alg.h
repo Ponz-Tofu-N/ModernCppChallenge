@@ -72,8 +72,8 @@ void quicksort(RamdomAI begin, RamdomAI end, Compare compare)
   // while終了後5 3 1 4 2 9 7 6 8
   while (left <= right)
   {
-    while (left <= right && !compare(*left, pivot)) left++;
-    while (left <= right && compare(*right, pivot)) right--;
+    while (left <= right && compare(*left, pivot)) left++;
+    while (left <= right && !compare(*right, pivot)) right--;
 
     if (left < right)
     {
@@ -87,6 +87,6 @@ void quicksort(RamdomAI begin, RamdomAI end, Compare compare)
 
   // 2 3 1 4 5 9 7 6 8
   // 2 3 1 4 5 | 9 7 6 8 で再度ソートを行う
-  quicksort(begin, left - 1);
-  quicksort(left, end);
+  quicksort(begin, left - 1, compare);
+  quicksort(left, end, compare);
 }
