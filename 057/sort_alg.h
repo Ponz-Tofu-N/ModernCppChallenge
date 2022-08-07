@@ -60,7 +60,6 @@ void quicksort(RamdomAI begin, RamdomAI end, Compare compare)
 
   // ピボットを決定（インデックスが先頭の値）
   auto pivot = *begin;
-  // std::cout << "pivot: " << pivot << std::endl;
 
   // ピボットを除外した範囲の左端をleft、右端をrightとする
   // 5 3 8 6 2 9 7 4 1ならleft=3, right=1(endは最後の次の位置のため-1する)
@@ -85,16 +84,6 @@ void quicksort(RamdomAI begin, RamdomAI end, Compare compare)
   // pivot(begin)とpivotより小さい値の一番右(left - 1)と入れ替える。
   // 2 3 1 4 5 9 7 6 8
   std::swap(*begin, *(left - 1));
-
-  // std::cout << "left: " << *left << " "
-  //           << "right: " << *right << " "
-  //           << "begin: " << *begin << " "
-  //           << "end: " << *end << std::endl;
-  // for (auto i = begin; i != end; i++)
-  // {
-  //   std::cout << *i << " ";
-  // }
-  // std::cout << std::endl;
 
   // 2 3 1 4 5 9 7 6 8
   // 2 3 1 4 5 | 9 7 6 8 で再度ソートを行う
