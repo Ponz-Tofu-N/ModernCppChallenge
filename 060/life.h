@@ -112,8 +112,8 @@ class Life
 
   void display()
   {
-    std::cout << "======================================================="
-              << std::endl;
+    ::system("tput clear");
+
     for (size_t c = 0; c < columns; ++c)
     {
       for (size_t r = 0; r < rows; ++r)
