@@ -16,6 +16,8 @@ void print(const Container c)
 /*コンテナのサイズを並列可能数で割り、ロットの数を決める*/
 /*上からスレッド数分取り出し、各スレッドで計算する*/
 /*全てのスレッドが完了したら、次のロットに移行する*/
+/*これは失敗作*/
+/*これだと計算コストよりもthreadオブジェクトの構築の方が時間がかかっている感じがする*/
 template <typename RamdomAI, typename Func>
 void thread_transform(RamdomAI begin, RamdomAI end, Func&& f)
 {
