@@ -13,33 +13,41 @@ int main(int argc, char const* argv[])
 {
   std::vector<int> items(100000000, 2);
 
-  auto start1 = std::chrono::system_clock::now();
-  std::transform(std::begin(items),
-                 std::end(items),
-                 items.begin(),
-                 [](auto& a) { return a * 2; });
+  const auto threaded1 = [&items]()
+  {
+    std::transform(std::begin(items),
+                   std::end(items),
+                   items.begin(),
+                   [](auto& a) { return a * 2; });
+  };
 
-  auto end1 = std::chrono::system_clock::now();
-  auto erapsed_time1 =
-      std::chrono::duration_cast<std::chrono::milliseconds>(end1 - start1);
-  std::cout << "std::transform: " << erapsed_time1.count() << " ms"
-            << std::endl;
+  print_erapsedtime(threaded1, "std::transform");
 
-  auto start = std::chrono::system_clock::now();
-  thread_transform_ver2(std::begin(items),
-                        std::end(items),
-                        [](auto& a)
-                        {
-                          //  using namespace std::chrono_literals;
-                          //  std::this_thread::sleep_for(1000ms);
-                          return a * 2;
-                        });
-  auto end = std::chrono::system_clock::now();
+  const auto threaded2 = [&items]()
+  {
+    thread_transform_ver2(std::begin(items),
+                          std::end(items),
+                          [](auto& a)
+                          {
+                            //  using namespace std::chrono_literals;
+                            //  std::this_thread::sleep_for(1000ms);
+                            return a * 2;
+                          });
+  };
 
-  auto erapsed_time =
-      std::chrono::duration_cast<std::chrono::seconds>(end - start);
-  std::cout << "threaded transform: " << erapsed_time.count() << " ms"
-            << std::endl;
+  print_erapsedtime(threaded2, "threaded transform");
 
-  return 0;
+  const auto threaded3 = [&items]()
+  {
+    ptransform(std::begin(items),
+               std::end(items),
+               [](auto& a)
+               {
+                 //  using namespace std::chrono_literals;
+                 //  std::this_thread::sleep_for(1000ms);
+                 return a * 2;
+               });
+  };
+
+  print_erapsedtime(threaded3, "threaded transform");
 }
