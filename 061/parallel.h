@@ -65,8 +65,8 @@ void ptransform(RandomAccessIterator begin, RandomAccessIterator end, F&& f)
 /*これは失敗作*/
 /*これだと計算コストよりもthreadオブジェクトの構築の方が時間がかかっている感じがする*/
 /*総タスクを並列可能な数に分割する方針の方が速い*/
-template <typename RamdomAI, typename Func>
-void thread_transform(RamdomAI begin, RamdomAI end, Func&& f)
+template <typename RandomAI, typename Func>
+void thread_transform(RandomAI begin, RandomAI end, Func&& f)
 {
   const float size        = std::distance(begin, end);
   const auto thread_count = std::thread::hardware_concurrency();
@@ -93,8 +93,8 @@ void thread_transform(RamdomAI begin, RamdomAI end, Func&& f)
   }
 }
 
-template <typename RamdomAI, typename Func>
-void thread_transform_ver2(RamdomAI begin, RamdomAI end, Func&& f)
+template <typename RandomAI, typename Func>
+void thread_transform_ver2(RandomAI begin, RandomAI end, Func&& f)
 {
   const float size        = std::distance(begin, end);
   const auto thread_count = std::thread::hardware_concurrency();
