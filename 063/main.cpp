@@ -32,10 +32,24 @@ int main(int argc, char const* argv[])
 
   const auto threaded2 = [&items]()
   {
-    auto max = async_transform(std::begin(items), std::end(items));
+    auto max = async_max(std::begin(items), std::end(items));
     std::cout << "max: " << max << std::endl;
   };
-  print_erapsedtime(threaded2, "threaded max_element");
+  print_erapsedtime(threaded2, "async max_element");
+
+  const auto threaded3 = [&items]()
+  {
+    auto max_i = std::min_element(std::begin(items), std::end(items));
+    std::cout << "max: " << *max_i << std::endl;
+  };
+  print_erapsedtime(threaded3, "std::min_element");
+
+  const auto threaded4 = [&items]()
+  {
+    auto max = async_min(std::begin(items), std::end(items));
+    std::cout << "max: " << max << std::endl;
+  };
+  print_erapsedtime(threaded4, "async min_element");
 
   return 0;
 }

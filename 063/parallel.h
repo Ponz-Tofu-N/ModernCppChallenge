@@ -28,12 +28,13 @@ void print(const Container c)
   std::cout << std::endl;
 }
 
-template <typename RandomAI>
-auto async_transform(RandomAI begin, RandomAI end)
+template <typename RandomAI, typename Func>
+auto async_transform(RandomAI begin, RandomAI end, Func&& f)
 {
   const float size        = std::distance(begin, end);
-  const auto thread_count = std::thread::hardware_concurrency();
-  const size_t lots       = std::ceil(size / thread_count);
+  const auto thread_count = 100;
+  // const auto thread_count = std::thread::hardware_concurrency();
+  const size_t lots = std::ceil(size / thread_count);
 
   auto first = begin;
   auto last  = begin;
@@ -48,8 +49,8 @@ auto async_transform(RandomAI begin, RandomAI end)
     first = last;
     last  = (i == thread_count - 1) ? end : first + lots;
 
-    const auto threaded = [](auto first, auto last)
-    { return *std::max_element(first, last); };
+    const auto threaded = [&f](auto first, auto last)
+    { return std::forward<Func>(f)(first, last); };
 
     // 一度変数に格納すると、push_backがエラーになる
     //　std::futureのコピーコンストラクタがデリートされているため？
@@ -61,5 +62,23 @@ auto async_transform(RandomAI begin, RandomAI end)
     maxs.push_back(i.get());
   }
 
-  return *std::max_element(std::begin(maxs), std::end(maxs));
+  return std::forward<Func>(f)(std::begin(maxs), std::end(maxs));
+}
+
+template <typename Iterator>
+auto async_max(Iterator begin, Iterator end)
+{
+  return async_transform(begin,
+                         end,
+                         [](auto first, auto last)
+                         { return *std::max_element(first, last); });
+}
+
+template <typename Iterator>
+auto async_min(Iterator begin, Iterator end)
+{
+  return async_transform(begin,
+                         end,
+                         [](auto first, auto last)
+                         { return *std::min_element(first, last); });
 }
