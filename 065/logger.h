@@ -12,8 +12,19 @@ class Logger
   Logger(const Logger& other)         = delete;
   void operator=(const Logger& other) = delete;
 
-  void log() { std::cout << "logging..." << std::endl; }
+  template <typename... T>
+  void log(T&... t)
+  {
+    lock.lock();
+
+    std::cout << "[Log]: ";
+    (std::cout << ... << t);
+    std::cout << "\n";
+
+    lock.unlock();
+  }
 
  private:
   constexpr Logger() {}
+  std::mutex lock;
 };
