@@ -16,7 +16,10 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 # message( ${Boost_INCLUDE_DIR})
 # FIND_PACKAGE( Boost 1.71 COMPONENTS circular_buffer REQUIRED )
 # INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
+find_package(Threads REQUIRED)
 add_executable(main main.cpp)
+
+target_link_libraries(main Threads::Threads)
 
 # target_link_libraries(main PUBLIC "-pthread")
 set_property(TARGET main PROPERTY CXX_STANDARD 17)
