@@ -17,7 +17,7 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 # FIND_PACKAGE( Boost 1.71 COMPONENTS circular_buffer REQUIRED )
 # INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
 find_package(Threads REQUIRED)
-add_executable(main main.cpp)
+add_executable(main main.cpp validator.cpp)
 
 # target_link_libraries(main Threads::Threads)
 

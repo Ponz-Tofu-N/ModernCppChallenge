@@ -1,60 +1,54 @@
 #include <iostream>
 #include <memory>
 
-
 class validator
+{
+public:
+  validator(){};
+  ~validator(){};
+
+  virtual void validate(const std::string_view password){};
+};
+
+class length_validator : public validator
+{
+private:
+  uint32_t limit = 8;
+
+public:
+  using validator::validator;
+  length_validator(const uint32_t _limit) : limit(_limit){};
+  ~length_validator(){};
+
+  void validate(const std::string_view password) override;
+};
+
+class pattern_validator : public validator
 {
 protected:
   std::unique_ptr<validator> v;
 
 public:
-  validator() = default;
-  validator(validator* inner);
-  ~validator();
-
-  virtual void validate(){};
+  using validator::validator;
+  ~pattern_validator(){};
 };
 
-validator::validator(validator* inner)
-    :v(inner)
+class uppercase_validator : public pattern_validator
 {
-}
-
-validator::~validator()
-{
-}
-
-class length_validator : public validator
-{
-private:
-    /* data */
 public:
-    using validator::validator;
-    ~length_validator(){};
+  uppercase_validator(){};
+  uppercase_validator(validator* inner) { v.reset(inner); };
+  ~uppercase_validator(){};
 
-    void validate() override;
+  void validate(const std::string_view password) final override;
 };
 
-void length_validator::validate()
+class digit_validator : public pattern_validator
 {
-    std::cout << "length : OK" << std::endl;
-    
-    if (v) v->validate();
-}
-
-class number_validator : public validator
-{
-private:
-    /* data */
 public:
-    using validator::validator;
-    ~number_validator(){};
+  digit_validator(){};
+  digit_validator(validator* inner) { v.reset(inner); };
+  ~digit_validator(){};
 
-    void validate() override;
+  void validate(const std::string_view password) final override;
 };
-
-void number_validator::validate()
-{
-    std::cout << "number : OK" << std::endl;
-    if (v) v->validate();
-}

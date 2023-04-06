@@ -5,9 +5,9 @@
  *  - validate the given password by chosen rules
  */
 
-#include "validator.h"
-
 #include <string>
+
+#include "validator.h"
 
 // 長さの検証
 // 少なくとも一つの記号
@@ -17,16 +17,13 @@
 
 int main(int argc, char const* argv[])
 {
-  std::string password = "aaa";
+  std::string password = "aaaAAA11123";
 
   // バリデータを構築
-  auto p = std::make_unique<length_validator>();
-  number_validator nv(p.get());
+  digit_validator dig_v(new uppercase_validator(new length_validator(13)));
 
-  
   // パスワードを検証
-  nv.validate();
-
+  dig_v.validate(password);
 
   return 0;
 }
