@@ -17,6 +17,7 @@ class generator {
 class password_generators : public generator {
  public:
   password_generators(/* args */);
+  password_generators(const uint32_t &length);
   ~password_generators();
 
   virtual std::string generate() override final;
@@ -25,6 +26,7 @@ class password_generators : public generator {
   virtual std::string allowed_char() override final;
 
  private:
+  uint32_t len = 10;
   std::mt19937 engine;
   std::vector<std::unique_ptr<generator>> generators;
   std::string tokens = "abcdefghijklmnopqrstuvwxyz";
@@ -73,54 +75,3 @@ class number_generator : public basic_generator {
 
   virtual std::string allowed_char() override;
 };
-// class validator
-// {
-// public:
-//   validator(){};
-//   ~validator(){};
-
-//   virtual void validate(const std::string_view password){};
-// };
-
-// class length_validator : public validator
-// {
-// private:
-//   uint32_t limit = 8;
-
-// public:
-//   using validator::validator;
-//   length_validator(const uint32_t _limit) : limit(_limit){};
-//   ~length_validator(){};
-
-//   void validate(const std::string_view password) override;
-// };
-
-// class pattern_validator : public validator
-// {
-// protected:
-//   std::unique_ptr<validator> v;
-
-// public:
-//   using validator::validator;
-//   ~pattern_validator(){};
-// };
-
-// class uppercase_validator : public pattern_validator
-// {
-// public:
-//   uppercase_validator(){};
-//   uppercase_validator(validator* inner) { v.reset(inner); };
-//   ~uppercase_validator(){};
-
-//   void validate(const std::string_view password) final override;
-// };
-
-// class digit_validator : public pattern_validator
-// {
-// public:
-//   digit_validator(){};
-//   digit_validator(validator* inner) { v.reset(inner); };
-//   ~digit_validator(){};
-
-//   void validate(const std::string_view password) final override;
-// };

@@ -16,7 +16,7 @@
 // 小文字
 
 int main(int argc, char const* argv[]) {
-  password_generators gen;
+  password_generators gen(15);
 
   gen.add(std::make_unique<number_generator>(4));
   gen.add(std::make_unique<symbol_generator>(1));

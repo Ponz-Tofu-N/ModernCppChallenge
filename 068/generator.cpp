@@ -2,7 +2,7 @@
 
 #include <array>
 
-password_generators::password_generators() {
+static std::seed_seq gen_seed() {
   std::random_device seed_gen;
   std::array<std::uint32_t, 100> seeds;
 
@@ -10,7 +10,16 @@ password_generators::password_generators() {
     x = seed_gen();
   }
 
-  std::seed_seq seq(seeds.begin(), seeds.end());
+  return std::seed_seq(seeds.begin(), seeds.end());
+}
+
+password_generators::password_generators() {
+  auto seq = gen_seed();
+  engine = std::mt19937(seq);
+}
+
+password_generators::password_generators(const uint32_t& length) : len(length) {
+  auto seq = gen_seed();
   engine = std::mt19937(seq);
 }
 
@@ -21,11 +30,12 @@ std::string password_generators::generate() {
   std::string password;
   for (auto&& g : generators) {
     tokens += g->allowed_char();
-    std::uniform_int_distribution<> dist(0, tokens.size() - 1);
-    for (size_t i = 0; i < g->length(); i++) {
-      int index = dist(engine);
-      password.push_back(tokens[index]);
-    }
+  }
+
+  std::uniform_int_distribution<> dist(0, tokens.size() - 1);
+  for (size_t i = 0; i < len; i++) {
+    int index = dist(engine);
+    password.push_back(tokens[index]);
   }
 
   return password;
