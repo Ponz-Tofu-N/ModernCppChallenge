@@ -14,9 +14,9 @@
 
 #include "discount.h"
 
-static void print_price(price_calculator const &pc) {
-  std::cout << pc.calculate_price() << std::endl;
-};
+// static void print_price(price_calculator const &pc) {
+//   std::cout << pc.calculate_price() << std::endl;
+// };
 
 int main() {
   certain_percentage rule1(0.1);
@@ -41,4 +41,16 @@ int main() {
   orderlist o7{107, &c3, {{a3, 15, nullptr}}, nullptr};
   orderlist o8{108, &c3, {{a2, 20, &rule1}}, nullptr};
   orderlist o9{109, &c3, {{a2, 20, &rule1}}, &rule4};
+
+  price_calculator c;
+
+  std::cout << c.calculate_price(o1) << std::endl;
+  std::cout << c.calculate_price(o2) << std::endl;
+  std::cout << c.calculate_price(o3) << std::endl;
+  std::cout << c.calculate_price(o4) << std::endl;
+  std::cout << c.calculate_price(o5) << std::endl;
+  std::cout << c.calculate_price(o6) << std::endl;
+  std::cout << c.calculate_price(o7) << std::endl;
+  std::cout << c.calculate_price(o8) << std::endl;
+  std::cout << c.calculate_price(o9) << std::endl;
 }
