@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 struct notification {
   enum class change_type { ADD, DELETE, ASSIGN, CLEAR };
