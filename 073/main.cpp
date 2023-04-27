@@ -38,7 +38,7 @@ int main() {
 
   serialize(movies, "movies.xml");
 
-  // auto result = deserialize("movies.xml");
+  auto result = deserialize("movies.xml");
 
   // assert(result.size() == 2);
   // assert(result[0].title == "The Matrix");
