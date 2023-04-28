@@ -65,26 +65,36 @@ void serialize(movie_list list, std::string filepath) {
 };
 
 movie_list deserialize(std::string const &filepath) {
+  movie_list list;
+
   pugi::xml_document doc;
   pugi::xml_parse_result result = doc.load_file(filepath.c_str());
 
-  for (auto &&node : doc.child("movies")) {
-    auto id = std::atoi(node.attribute("id").value());
-    auto title = std::string(node.attribute("title").value());
-    auto release_year = std::atoi(node.attribute("year").value());
-    auto length = std::string(node.attribute("length").value());
+  for (auto &&movie_node : doc.child("movies")) {
+    movie m;
+    m.id = std::atoi(movie_node.attribute("id").value());
+    m.title = std::string(movie_node.attribute("title").value());
+    m.release_year = std::atoi(movie_node.attribute("year").value());
+    m.length = std::atoi(movie_node.attribute("length").value());
 
-    std::cout << id << title << release_year << length << std::endl;
+    for (auto &&cast_node : movie_node.child("cast")) {
+      auto star = cast_node.attribute("star").value();
+      auto name = cast_node.attribute("name").value();
+      m.casts.push_back(cast_role{star, name});
+    }
+
+    for (auto &&director_node : movie_node.child("directors")) {
+      auto name = director_node.attribute("name").value();
+      m.directors.push_back(name);
+    }
+
+    for (auto &&writer_node : movie_node.child("writers")) {
+      auto name = writer_node.attribute("name").value();
+      m.writers.push_back(name);
+    }
+
+    list.push_back(m);
   }
 
-  // uint32_t id;
-  // std::string title;                   // "The Matrix",
-  // uint32_t release_year;               // 1999,
-  // uint32_t length;                     // 196,
-  // std::vector<cast_role> casts;        // {{"Keanu Reeves", "Neo"},
-  //                                      //  {"Laurence Fishburne", "Morpheus"},
-  //                                      //  {"Carrie-Anne Moss", "Trinity"},
-  //                                      //  {"Hugo Weaving", "Agent Smith"}},
-  // std::vector<std::string> directors;  // {"Lana Wachowski", "Lilly Wachowski"},
-  // std::vector<std::string> writers;    // {"Lana Wachowski", "Lilly Wachowski"},
+  return list;
 };

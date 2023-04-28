@@ -6,9 +6,10 @@
  * - Serialize from a movie list to a file
  */
 
-#include <iostream>
-
 #include "movie_xml.h"
+
+#include <cassert>
+#include <iostream>
 
 int main() {
   movie_list movies{{
@@ -40,7 +41,9 @@ int main() {
 
   auto result = deserialize("movies.xml");
 
-  // assert(result.size() == 2);
-  // assert(result[0].title == "The Matrix");
-  // assert(result[1].title == "Forrest Gump");
+  assert(result.size() == 2);
+  assert(result[0].title == "The Matrix");
+  assert(result[1].title == "Forrest Gump");
+
+  std::cout << "OK" << std::endl;
 }
