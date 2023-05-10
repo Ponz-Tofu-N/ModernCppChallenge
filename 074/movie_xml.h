@@ -111,8 +111,6 @@ std::vector<std::string> released_after(std::string const &filepath, const int y
   pugi::xpath_query query_movies("/movies/movie");
   pugi::xpath_node_set tools = query_movies.evaluate_node_set(doc);
 
-  std::cout << "Tools:\n";
-
   for (auto &&t : tools) {
     auto year_c = t.node().attribute("year").value();
 
@@ -120,6 +118,24 @@ std::vector<std::string> released_after(std::string const &filepath, const int y
       auto title = t.node().attribute("title").value();
       movies.push_back(title);
     }
+  }
+
+  return movies;
+}
+
+std::vector<std::string> last_actor_list(std::string const &filepath) {
+  std::vector<std::string> movies;
+
+  pugi::xml_document doc;
+  doc.load_file(filepath.c_str());
+
+  pugi::xpath_query query_movies("/movies/movie/cast/role[last()]");
+  pugi::xpath_node_set casts = query_movies.evaluate_node_set(doc);
+
+  for (auto &&c : casts) {
+    auto cast = c.node().attribute("star").value();
+
+    movies.push_back(cast);
   }
 
   return movies;

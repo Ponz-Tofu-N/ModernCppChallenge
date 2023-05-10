@@ -45,4 +45,12 @@ int main() {
   assert(filtered[0] == "The Matrix");
 
   std::cout << "OK" << std::endl;
+
+  auto actors = last_actor_list("movies.xml");
+
+  assert(actors.size() == 2);
+  assert(actors[0] == "Hugo Weaving");
+  assert(actors[1] == "Mykelti Williamson");
+
+  std::cout << "OK" << std::endl;
 }
