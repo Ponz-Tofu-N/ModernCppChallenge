@@ -103,24 +103,24 @@ movie_list deserialize(std::string const &filepath) {
 };
 
 std::vector<std::string> released_after(std::string const &filepath, const int year) {
-  std::vector<std::string> movies;
+  std::vector<std::string> titles;
 
   pugi::xml_document doc;
   doc.load_file(filepath.c_str());
 
   pugi::xpath_query query_movies("/movies/movie");
-  pugi::xpath_node_set tools = query_movies.evaluate_node_set(doc);
+  pugi::xpath_node_set movies = query_movies.evaluate_node_set(doc);
 
-  for (auto &&t : tools) {
-    auto year_c = t.node().attribute("year").value();
+  for (auto &&m : movies) {
+    auto year_c = m.node().attribute("year").value();
 
     if (std::atoi(year_c) > year) {
-      auto title = t.node().attribute("title").value();
-      movies.push_back(title);
+      auto title = m.node().attribute("title").value();
+      titles.push_back(title);
     }
   }
 
-  return movies;
+  return titles;
 }
 
 std::vector<std::string> last_actor_list(std::string const &filepath) {
